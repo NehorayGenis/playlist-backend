@@ -1,7 +1,7 @@
-const bugService = require('./BugService')
+const videoService = require('./video.service.js')
 
 ;(async () => {
-  const name = 'play'
-  const bugs = await bugService.query({ name })
-  console.log('Bugs:', bugs)
+	const name = 'play'
+	const videos = await videoService.query({ name })
+	console.log('Vugs:', videos)
 })()

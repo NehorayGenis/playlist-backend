@@ -1,20 +1,18 @@
+// import store from './store/index'
 import { router } from './router/index.js'
-import appHeader from './cmps/app-header.cmp.js'
-import userMsg from './cmps/user-msg.cmp.js'
+import homeView from './pages/homeView.cmp.js'
+// import ElementPlus from 'element-plus'
+// import 'element-plus/dist/index.css'
+// import 'element-plus/theme-chalk/dark/css-vars.css'
 
 const options = {
-  template: `
-    <app-header />
-    <user-msg />
+	template: `
     <router-view />
     `,
-  router,
-  components: {
-    appHeader,
-    userMsg,
-  },
+	router,
+	components: { homeView }
 }
-
 const app = Vue.createApp(options)
 app.use(router)
+// app.use(store)
 app.mount('#app')
