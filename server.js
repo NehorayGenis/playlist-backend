@@ -79,7 +79,7 @@ app.get('/api/video', (req, res) => {
 		bySeverity,
 		pageIdx
 	}
-
+	console.log('getting')
 	VideoService.query(filterBy)
 		.then(Videos => res.send(Videos))
 		.catch(err => res.status(500).send('Cannot get Videos'))
@@ -90,12 +90,13 @@ app.post('/api/video', (req, res) => {
 	const loggedInUser = userService.validateToken(req.cookies.loginToken)
 	if (!loggedInUser && !loggedInUser.isAdmin)
 		return res.status(401).send('Cannot add video')
-	const { description, title, severity } = req.body
+	// console.log('req.body', req.body)
+	const { url, title, thumbnail, isSaved } = req.body
 	const video = {
-		description,
+		url,
 		title,
-		severity,
-		creator_id: loggedInUser._id
+		thumbnail,
+		isSaved
 	}
 	VideoService.save(video)
 		.then(savedVideo => res.send(savedVideo))

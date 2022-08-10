@@ -1,7 +1,7 @@
-import { userService } from "../services/user.services.js";
+import { userService } from '../services/user.services.js'
 
 export default {
-  template: `
+	template: `
     <section>
         <button @click="action = signup">Signup</button>
         <button @click="action = login">Login</button>
@@ -22,60 +22,60 @@ export default {
             </section>
  </section>
  `,
-  components: {},
-  data() {
-    return {
-      action: null,
-      user: null,
-      credential: {
-        username: "",
-        password: "",
-      },
-      signupInfo: {
-        fullname: "",
-        username: "",
-        password: "",
-      },
-    };
-  },
-  methods: {
-    login() {
-      userService
-        .login(this.credential)
-        .then((user) => {
-          this.user = user;
-          this.$router.push("/user-details");
-        })
-        .catch((err) => {
-          console.error("username or password are inccorect");
-        });
-      this.resetPage();
-    },
-    signup() {
-      userService
-        .signup(this.signupInfo)
-        .then((user) => {
-          this.user = user;
-          this.$router.push("/user-details");
-        })
-        .catch((err) => {
-          console.error("Cannot signup", err);
-        });
-      this.resetPage();
-    },
-    resetPage() {
-      this.credential = {
-        username: "",
-        password: "",
-      };
-      this.signupInfo = {
-        fullname: "",
-        username: "",
-        password: "",
-      };
-    },
-  },
-  computed: {},
-  created() {},
-  unmounted() {},
-};
+	components: {},
+	data() {
+		return {
+			action: null,
+			user: null,
+			credential: {
+				username: '',
+				password: ''
+			},
+			signupInfo: {
+				fullname: '',
+				username: '',
+				password: ''
+			}
+		}
+	},
+	methods: {
+		login() {
+			userService
+				.login(this.credential)
+				.then(user => {
+					this.user = user
+					this.$router.push('/playlist')
+				})
+				.catch(err => {
+					console.error('username or password are incorrect')
+				})
+			this.resetPage()
+		},
+		signup() {
+			userService
+				.signup(this.signupInfo)
+				.then(user => {
+					this.user = user
+					this.$router.push('/playlist')
+				})
+				.catch(err => {
+					console.error('Cannot signup', err)
+				})
+			this.resetPage()
+		},
+		resetPage() {
+			this.credential = {
+				username: '',
+				password: ''
+			}
+			this.signupInfo = {
+				fullname: '',
+				username: '',
+				password: ''
+			}
+		}
+	},
+	computed: {},
+	created() {},
+	unmounted() {}
+}

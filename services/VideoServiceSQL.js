@@ -1,6 +1,7 @@
 const DBService = require('./DBServiceSQL')
 
 async function query(criteria = {}) {
+	console.log('querying')
 	var namePart = criteria.name || ''
 	var query = `SELECT * FROM video  WHERE video.title LIKE '%${namePart}%'`
 	const videos = await DBService.runSQL(query)
@@ -16,13 +17,18 @@ async function getById(videoId) {
 }
 
 async function add(video) {
-	var sqlCmd = `INSERT INTO video (title, description, severity, creator_id) 
+	console.log('adding')
+	var sqlCmd = `INSERT INTO video (title, url, thumbnail,isSaved) 
                 VALUES ("${video.title}",
                         "${video.url}",
                         "${video.thumbnail}",
-                        "${video._id}")`
+                        "${video.isSaved}")`
+	console.log(sqlCmd)
 	const newVideo = await DBService.runSQL(sqlCmd)
+	console.log('newVideo', newVideo)
 	const currVideo = await getById(newVideo.insertId)
+	console.log('currVideo', currVideo)
+
 	return currVideo
 }
 
@@ -49,7 +55,7 @@ async function update(video) {
 function remove(videoId, userId) {
 	var query = `DELETE FROM video WHERE video._id = ${videoId}`
 	// var query = `DELETE FROM video WHERE video._id = ${videoId} && creator_id = ${userId}`
-
+	console.log('videoId', videoId)
 	return DBService.runSQL(query).then(okPacket =>
 		okPacket.affectedRows === 1
 			? okPacket

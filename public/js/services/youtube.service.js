@@ -1,4 +1,4 @@
-const YT_KEY = 'AIzaSyBVbvO_wzAq3b0_5PM1ViTAjL01I-eg_Dg'
+const YT_KEY = 'AIzaSyDzMdhRiZBcJjtHKDwz9QZX4uhE7OsF0mA'
 async function getVideos(value) {
 	const {
 		data: { items }

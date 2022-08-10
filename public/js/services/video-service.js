@@ -10,8 +10,10 @@ export const videoService = {
 	remove
 }
 
-function query(filterBy = {}) {
-	return axios.get(API, { params: filterBy }).then(res => res.data)
+// console.log(axios)
+async function query(filterBy = {}) {
+	const { data } = await axios.get(API, { params: filterBy })
+	return data
 }
 
 function getById(videoId) {
@@ -29,10 +31,18 @@ function remove(videoId) {
 	return axios.delete(API + videoId).then(res => res.data)
 }
 
-function save(video) {
-	if (video._id) {
-		return axios.put(API + video._id, video).then(res => res.data)
-	} else {
-		return axios.post(API, video).then(res => res.data)
+async function save(video) {
+	try {
+		if (video._id) {
+			const { data } = await axios.put(API + video._id, video)
+			return data
+		} else {
+			// console.log('video', video)
+			const { data } = await axios.post(API, video)
+			// console.log(data)
+			return data
+		}
+	} catch (e) {
+		console.error(e)
 	}
 }
